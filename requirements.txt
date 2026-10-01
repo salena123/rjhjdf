@@ -1,1 +1,1 @@
-cryptography==26.2.1
+cryptography==46.0.5
