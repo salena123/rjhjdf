@@ -70,3 +70,15 @@ packet = nonce + ciphertext
 sock.sendto(packet, (SERVER_IP, SERVER_PORT))
 print(f"Sent encrypted message to server: {message.decode()}")
 
+response_packet, server_address = sock.recvfrom(65535)
+
+print(f"Received response packet from server: {response_packet.hex()}")
+
+response_nonce = response_packet[:12]
+response_ciphertext = response_packet[12:]
+
+print(f"Response Nonce: {response_nonce.hex()}")
+print(f"Response Ciphertext: {response_ciphertext.hex()}")
+
+response_plaintext = cipher.decrypt(response_nonce, response_ciphertext, None)
+print(f"Decrypted response message: {response_plaintext.decode()}")

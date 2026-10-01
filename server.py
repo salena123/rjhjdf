@@ -1,4 +1,5 @@
 import socket
+import os
 
 from cryptography.hazmat.primitives.asymmetric.x25519 import (
     X25519PrivateKey,
@@ -78,3 +79,11 @@ print(f"Ciphertext: {ciphertext.hex()}")
 
 plaintext = cipher.decrypt(nonce, ciphertext, None)
 print(f"Decrypted message: {plaintext.decode()}")
+
+response_message = b"Hello, secure client!"
+response_nonce = os.urandom(12)
+response_ciphertext = cipher.encrypt(response_nonce, response_message, None)
+response_packet = response_nonce + response_ciphertext
+
+sock.sendto(response_packet, addr)
+print(f"Sent encrypted response to client: {response_message.decode()}")
