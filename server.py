@@ -13,7 +13,7 @@ from cryptography.hazmat.primitives.serialization import (
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
-
+from cryptography.hazmat.backends import default_backend
 
 HOST = "0.0.0.0"
 PORT = 51820
@@ -31,6 +31,7 @@ def derive_key(shared_secret: bytes, salt: bytes) -> bytes:
         length=32,
         salt=salt,
         info=b'handshake data',
+        backend=default_backend()
     )
     return hkdf.derive(shared_secret)
 
