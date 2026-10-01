@@ -55,7 +55,7 @@ print(f"Client Address: {client_address}")
 
 client_public_key = X25519PublicKey.from_public_bytes(client_public_bytes)
 
-socket.sendto(server_public_bytes, client_address)
+sock.sendto(server_public_bytes, client_address)
 print(f"Sent Server Public Key to {client_address}")
 
 shared_secret = server_private_key.exchange(client_public_key)
